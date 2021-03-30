@@ -2,9 +2,9 @@
   "name": "rrd-stream",
   "version": "0.2.0",
   "description": "Node.js library for streaming RRD file",
-  "author": "Simon Boulet <simon@nostalgeek.com>",
+  "author": "Blake Werner <wernerblakec@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/siboulet/node-rrd-stream"
+    "url": "https://github.com/wernerblake/"
   }
 }

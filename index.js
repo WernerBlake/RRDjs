@@ -2,7 +2,7 @@ var fs = require('fs');
 var rrdStream = require('./package/index');
 
 //input and output files
-var rrdOrigin = "memory.xml.rrd"
+var rrdOrigin = "memory.rrd"
 var destination = "memory.json"
 
 var end = Date.now();

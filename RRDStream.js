@@ -33,9 +33,8 @@ var RRDStream = module.exports = function(options) {
   this.buffer = new Buffer(0);
   this.rra_index = 0;
 
-  // Default 
+  // Default total time since midnight 1/1/1970
   this.options = extend({
-    // Default to last 24h
     start: 0,
     end: Date.now(),
   }, options);
@@ -54,13 +53,11 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
       }
     }
 
+
     if (this.header && !this.header.ds && this.buffer.length >= this.header.header_size) {
       this.header.parse(this.buffer.slice(0, this.header.header_size));
       this.buffer = this.buffer.slice(this.header.header_size);
       this.emit('header', this.header);
-
-      // Find the RRA that has the best coverage for the requested period.
-      this.best_rra = {index:this.header.rra_cnt - 1, coverage:0};
 
       this.header.rra.forEach((function(rra, index) {
         var rra_end = this.header.last_update;
@@ -75,8 +72,7 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
 
         var coverage = rra_end - rra_start;
 
-        if (coverage > this.best_rra.coverage)
-          this.best_rra = {index:index, coverage:coverage};
+        this.best_rra = {index: index, coverage: coverage};
       }).bind(this));
     }
 
@@ -84,7 +80,6 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
       return done();
 
     // Parse each row
-
     while (this.buffer && this.buffer.length >= 8 * this.header.ds_cnt) {
       console.assert(this.rra_index <= this.best_rra.index);
 
@@ -99,10 +94,10 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
             console.assert(step <= dict.meta.steps.slice(-1));
 
           }).bind(this));
+          // RRD parse has completed
           if(this.rra_index === this.header.rra_cnt-1){
             this.rra.on('end', (function() {
               this.push(JSON.stringify(dict))
-              // Ignore remaining buffer
               this.buffer = new Buffer(0);
               this.end();
             }).bind(this));
@@ -126,6 +121,7 @@ function RRDHeader(data) {
   if (data.slice(0,3).toString() !== RRD_COOKIE) { throw new Error('Not an RRD file'); }
 
   this.version = data.slice(4,8).toString();
+
   if (this.version !== RRD_VERSION) { throw new Error('Unsupported RRD version'); }
 
   if (data.readDoubleLE(16) !== FLOAT_COOKIE) { throw new Error('Unsupported platform'); }
@@ -157,6 +153,8 @@ RRDHeader.prototype.parse = function(data) {
     var min = data.readDoubleLE(offset + 48);
     var max = data.readDoubleLE(offset + 56);
     this.ds.push({name:name, type:type, heartbeat:heartbeat, min:min, max:max});
+
+    // populate meta data for each ds
     dict.meta.legend.push(name)
     dict[name] = { 
       type:type, 
@@ -224,6 +222,7 @@ function RRDRRA(header, rra_index) {
   this.start = this.timestamp = this.end - ((this.rows - 1) * this.step);
   dict.meta.interval.push({"start": this.start, "end":this.end})
   this.ds = header.ds;
+  //initialize empty array for each ds at each rra
   for(var i in dict.meta.legend){
     dict[dict.meta.legend[i]]["data"][this.step] = []
   }
@@ -231,16 +230,18 @@ function RRDRRA(header, rra_index) {
 
 util.inherits(RRDRRA, EventEmitter);
 
-var g = 0
+
 RRDRRA.prototype.push = function(row) {
   console.assert(row.length === this.cdp_prep.length * 8);
   console.assert(this.row_count < this.rows);
   var values = [];
+  //increment the independant variable
   if((this.timestamp in time)){
     this.timestamp += this.step;
   }
   else{
     time[[this.timestamp]] = 0
+    
   if (this.row_count > this.cur_row) {
     for (var i = 0; i < this.cdp_prep.length; i++)
       dict[this.ds[i].name]["data"][this.step].push( { "x_value" : this.timestamp, "y_value" : row.readDoubleLE(i * 8) })
@@ -255,12 +256,6 @@ RRDRRA.prototype.push = function(row) {
   this.row_count++;
 
   if (this.row_count === this.rows) {
-    // Flush buffered rows
-    this.buffered_rows.forEach((function(values) {
-      dict[this.ds[i].name]["data"][this.step].push(values)
-      this.timestamp += this.step;
-    }).bind(this));
-
     this.emit('end');
   }
 }

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "vows --spec",
-    "build": "node index.js"
+    "build": "node index.js",
     "export": "node index.js"
   },
   "keywords": [],

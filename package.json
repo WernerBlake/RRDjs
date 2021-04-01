@@ -8,7 +8,7 @@
     "url": "https://github.com/wernerblake/"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vows --spec",
     "export": "node index.js"
   },
   "keywords": [],

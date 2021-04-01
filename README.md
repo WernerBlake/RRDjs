@@ -81,6 +81,6 @@ Each key within the Meta dictionary corresponds with an array of size equal to t
 
 ## Tips and tricks:
 If you decide to format your JSON file after conversion, you may be left with several hundreds of thousands of rows to scroll through.
-Use these commands to help navigate all that data.
+Use these commands to help navigate all that data:
 
 <img src=https://cdn.discordapp.com/attachments/792603226741538816/806126002450858014/unknown.png />

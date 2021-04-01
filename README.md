@@ -33,8 +33,8 @@ The JSON file will two main parts:
     "meta": {
         "interval": [ 
             {
-                "start": 1600963550,
-                "end": 1600974340
+                "start": 0,
+                "end": 1600000000
             },
             { ... },
        ],

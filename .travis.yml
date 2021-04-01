@@ -1,6 +1,9 @@
+sudo: false
+
 language: node_js
-rvm:
- - 10.19.0
-before_script:
-  - npm install -g bower
-  - bower install
+node_js:
+ - node
+
+script:
+ - npm lint
+ - npm run test:coveralls

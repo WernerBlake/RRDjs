@@ -12,9 +12,11 @@ $ node index.js origin.rrd destination.json
 ```
 
 ## Input:
-Conversion requires a Round Robin Database file.
+Conversion requires a Round Robin Database file to serve as the origin.
 
-Click the logo to find out more.
+If you've made it this far, you probably know what that means.
+
+If not: click the logo to find out more!
 
 <a href="https://oss.oetiker.ch/rrdtool/" target="_blank">
 <img src=https://www.phparch.com/wp-content/uploads/2011/02/rrdtool-3dlogo-e1298487072986-150x66.png />

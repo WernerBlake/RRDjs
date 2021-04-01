@@ -1,4 +1,4 @@
-# RRDjs
+# RRDjs [![Build Status](https://travis-ci.org/WernerBlake/RRDjs.svg?branch=master)](https://travis-ci.org/WernerBlake/RRDjs)
 
 Convert an RRD file into a JSON file.
 
@@ -80,7 +80,6 @@ Each key within the Meta dictionary corresponds with an array of size equal to t
 ```
 
 ## Tests:
-[![Build Status](https://travis-ci.org/WernerBlake/RRDjs.svg?branch=master)](https://travis-ci.org/WernerBlake/RRDjs)
 Test features are currently being added.
 
 ## Tips and tricks:

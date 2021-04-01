@@ -1,13 +1,17 @@
 {
   "name": "rrdjs",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Node.js app for streaming RRD files to JSON",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wernerblake/"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node index.js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Blake Werner <wernerblakec@gmail.com>",
   "license": "ISC"
 }

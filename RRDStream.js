@@ -38,7 +38,6 @@ var RRDStream = module.exports = function(options) {
     // Default to last 24h
     start: Date.now()/1000 - 86400,
     end: Date.now()/1000,
-    rra: 3,
   }, options);
 }
 
@@ -124,15 +123,12 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
 function RRDHeader(data) {
   console.assert(data.length === 128);
 
-  if (data.slice(0,3).toString() !== RRD_COOKIE)
-    throw new Error('Not an RRD file');
+  if (data.slice(0,3).toString() !== RRD_COOKIE) { throw new Error('Not an RRD file'); }
 
   this.version = data.slice(4,8).toString();
-  if (this.version !== RRD_VERSION)
-    throw new Error('Unsupported RRD version');
+  if (this.version !== RRD_VERSION) { throw new Error('Unsupported RRD version'); }
 
-  if (data.readDoubleLE(16) !== FLOAT_COOKIE)
-    throw new Error('Unsupported platform');
+  if (data.readDoubleLE(16) !== FLOAT_COOKIE) { throw new Error('Unsupported platform'); }
 
   this.ds_cnt = data.readUInt32LE(24);
   this.rra_cnt = data.readUInt32LE(32);
@@ -241,14 +237,11 @@ RRDRRA.prototype.push = function(row) {
   console.assert(this.row_count < this.rows);
   var values = [];
   if((this.timestamp in time)){
-    console.log(g++)
     this.timestamp += this.step;
   }
   else{
     time[[this.timestamp]] = 0
-    console.log("       ",g++)
   if (this.row_count > this.cur_row) {
-    // Immediately emit all rows after cur_row
     for (var i = 0; i < this.cdp_prep.length; i++)
       dict[this.ds[i].name]["data"][this.step].push( { "x_value" : this.timestamp, "y_value" : row.readDoubleLE(i * 8) })
     
@@ -261,11 +254,8 @@ RRDRRA.prototype.push = function(row) {
 }
   this.row_count++;
 
-  
-  // Reached end of RRA
   if (this.row_count === this.rows) {
     // Flush buffered rows
-    
     this.buffered_rows.forEach((function(values) {
       dict[this.ds[i].name]["data"][this.step].push(values)
       this.timestamp += this.step;

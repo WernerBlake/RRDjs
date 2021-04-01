@@ -49,7 +49,7 @@ The JSON file will be made up of two main parts:
             ...,
             "DS_NAME_N-1",
             "DS_NAME_N"
-             ]
+        ]
     },
 ```
 Each key within the Meta dictionary corresponds with an array of size equal to the RRA count.

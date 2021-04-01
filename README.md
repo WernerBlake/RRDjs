@@ -71,7 +71,8 @@ Each key within the Meta dictionary corresponds with an array of size equal to t
                 ],
             "30": [ ... ],
             "60": [ ... ],
-            "600": [ ... ],
+            "600": [ ... ]
+    },
     "DS_NAME_1": { ... },
     ...,
     "DS_NAME_N-1": { ... },

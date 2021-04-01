@@ -23,7 +23,7 @@ If not: click the logo to find out more!
 </a>
 
 ## Output:
-The JSON file will two main parts:
+The JSON file will be made up of two main parts:
 1. The Meta data for the entire RRD file
 2. All of the DS data
 ### RRD Meta Data:

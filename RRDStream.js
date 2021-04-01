@@ -1,5 +1,3 @@
-'use strict';
-
 var extend = require('util')._extend;
 var util = require('util');
 
@@ -241,7 +239,7 @@ RRDRRA.prototype.push = function(row) {
   }
   else{
     time[[this.timestamp]] = 0
-    
+
   if (this.row_count > this.cur_row) {
     for (var i = 0; i < this.cdp_prep.length; i++)
       dict[this.ds[i].name]["data"][this.step].push( { "x_value" : this.timestamp, "y_value" : row.readDoubleLE(i * 8) })

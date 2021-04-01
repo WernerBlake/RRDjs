@@ -33,11 +33,11 @@ var RRDStream = module.exports = function(options) {
   this.buffer = new Buffer(0);
   this.rra_index = 0;
 
-  // Default to last 24h
+  // Default 
   this.options = extend({
     // Default to last 24h
-    start: Date.now()/1000 - 86400,
-    end: Date.now()/1000,
+    start: 0,
+    end: Date.now(),
   }, options);
 }
 

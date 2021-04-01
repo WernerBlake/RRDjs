@@ -5,7 +5,7 @@ Convert an RRD file into a JSON file.
 ## Quick Overview:
 
 ```js
-$ npm run convert origin.rrd destination.json
+$ npm run export origin.rrd destination.json
 ```
 ```js
 $ node index.js origin.rrd destination.json
@@ -23,8 +23,10 @@ If not: click the logo to find out more!
 </a>
 
 ## Output:
-
-### RRA Meta Data:
+The JSON file will two main parts:
+1. The Meta data for the entire RRD file
+2. All of the DS data
+### RRD Meta Data:
 
 ```JSON
 {
@@ -79,6 +81,6 @@ Each key within the Meta dictionary corresponds with an array of size equal to t
 
 ## Tips and tricks:
 If you decide to format your JSON file after conversion, you may be left with several hundreds of thousands of rows to scroll through.
-Use these commands to help navigate all that data.
+Use these commands to help navigate all that data:
 
 <img src=https://cdn.discordapp.com/attachments/792603226741538816/806126002450858014/unknown.png />

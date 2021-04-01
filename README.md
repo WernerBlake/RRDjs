@@ -5,7 +5,7 @@ Convert an RRD file into a JSON file.
 ## Quick Overview:
 
 ```js
-$ npm run convert origin.rrd destination.json
+$ npm run export origin.rrd destination.json
 ```
 ```js
 $ node index.js origin.rrd destination.json

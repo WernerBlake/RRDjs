@@ -2,7 +2,7 @@
   "name": "rrdjs",
   "version": "0.1.0",
   "description": "Node.js app for streaming RRD files to JSON",
-  "main": "convert.js",
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/wernerblake/"

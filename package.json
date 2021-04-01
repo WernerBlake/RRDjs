@@ -9,8 +9,7 @@
   },
   "scripts": {
     "test": "vows --spec",
-    "test:coverage": "jest --coverage",
-    "test:coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+    "build": "node index.js"
     "export": "node index.js"
   },
   "keywords": [],

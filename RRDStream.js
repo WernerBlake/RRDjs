@@ -8,6 +8,7 @@ var RRD_COOKIE = 'RRD';
 var RRD_VERSION = '0003';
 var FLOAT_COOKIE = 8.642135e+130;
 
+//comment here: meta data
 const dict = {
   "meta": {
     "interval": [],
@@ -22,6 +23,8 @@ const dict = {
 const time={
 
 }
+
+//comment here: init stream
 var RRDStream = module.exports = function(options) {
   if (!(this instanceof RRDStream))
     return new RRDStream(options);
@@ -40,6 +43,7 @@ var RRDStream = module.exports = function(options) {
 
 util.inherits(RRDStream, Transform);
 
+// comment here: main
 RRDStream.prototype._transform = function(chunk, encoding, done) {
     this.buffer = Buffer.concat([this.buffer, chunk]);
 
@@ -112,7 +116,7 @@ RRDStream.prototype._transform = function(chunk, encoding, done) {
     }
     done();
   }
-
+//comment here: something about header and conversion of data from rrd
 function RRDHeader(data) {
   console.assert(data.length === 128);
 
@@ -206,7 +210,7 @@ RRDHeader.prototype.parse = function(data) {
 }
 
 
-
+//comment here: initializing each rra
 function RRDRRA(header, rra_index) {
   console.assert(rra_index < header.rra_cnt);
 
@@ -228,7 +232,7 @@ function RRDRRA(header, rra_index) {
 
 util.inherits(RRDRRA, EventEmitter);
 
-
+//comment here: setting up x, y values for each ds_name for each rra step
 RRDRRA.prototype.push = function(row) {
   console.assert(row.length === this.cdp_prep.length * 8);
   console.assert(this.row_count < this.rows);

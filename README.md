@@ -1,6 +1,6 @@
 # RRDjs [![Build Status](https://travis-ci.org/WernerBlake/RRDjs.svg?branch=master)](https://travis-ci.org/WernerBlake/RRDjs)
 
-Convert an RRD file into a JSON file.
+Convert an RRD file into a JSON file within Node.js without the use of underlying dependencies.
 
 ## Quick Overview:
 
@@ -23,7 +23,7 @@ If not: click the logo to find out more!
 </a>
 
 ## Output:
-The JSON file will two main parts:
+The JSON file will be made up of two main parts:
 1. The Meta data for the entire RRD file
 2. All of the DS data
 ### RRD Meta Data:
@@ -33,8 +33,8 @@ The JSON file will two main parts:
     "meta": {
         "interval": [ 
             {
-                "start": 1600963550,
-                "end": 1600974340
+                "start": 0,
+                "end": 1600000000
             },
             { ... },
        ],
@@ -49,7 +49,7 @@ The JSON file will two main parts:
             ...,
             "DS_NAME_N-1",
             "DS_NAME_N"
-             ]
+        ]
     },
 ```
 Each key within the Meta dictionary corresponds with an array of size equal to the RRA count.
@@ -71,7 +71,8 @@ Each key within the Meta dictionary corresponds with an array of size equal to t
                 ],
             "30": [ ... ],
             "60": [ ... ],
-            "600": [ ... ],
+            "600": [ ... ]
+    },
     "DS_NAME_1": { ... },
     ...,
     "DS_NAME_N-1": { ... },
